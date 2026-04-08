@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кассовый Терминал</title>
+    <style>
+        body { font-family: sans-serif; background: #222; color: #fff; display: flex; flex-direction: column; align-items: center; }
+        .screen { border: 5px solid #444; padding: 20px; width: 300px; text-align: center; background: #000; }
+        #status { color: #0f0; margin-bottom: 10px; font-size: 1.2em; }
+        .price { font-size: 2em; color: #ffcc00; }
+    </style>
+</head>
+<body>
+    <h1>ТЕРМИНАЛ</h1>
+    <div class="screen">
+        <div id="status">Ожидание...</div>
+        <div id="product">Выберите товар</div>
+        <div class="price"><span id="total">0</span> ₽</div>
+    </div>
+
+    <script>
+        // Функция обновления данных
+        function updateDisplay() {
+            const data = JSON.parse(localStorage.getItem('terminal_data')) || { name: 'Готов к работе', price: 0 };
+            document.getElementById('product').innerText = data.name;
+            document.getElementById('total').innerText = data.price;
+            document.getElementById('status').innerText = "Оплачено/Выбрано";
+        }
+
+        // Слушаем изменения в localStorage
+        window.addEventListener('storage', updateDisplay);
+        // Проверка при загрузке
+        updateDisplay();
+    </script>
+</body>
+</html>
